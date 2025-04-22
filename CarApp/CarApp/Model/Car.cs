@@ -18,6 +18,8 @@ public abstract class Car
     {
         IsEngineOn = false;
     }
-    public virtual void Drive (double distance) { } 
+    public abstract bool CanDrive();
+    public abstract void UpdateEnergyLevel(double distance);
+    public abstract double CalculateConsumption(double distance);
 
 }
