@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.gitignore = ..\.gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{320D4237-AFA8-4F32-8127-6257E72D2DB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCarApp", "TestProject1\TestCarApp.csproj", "{320D4237-AFA8-4F32-8127-6257E72D2DB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

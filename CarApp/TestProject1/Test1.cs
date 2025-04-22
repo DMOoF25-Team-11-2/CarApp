@@ -1,4 +1,4 @@
-namespace TestProject1;
+namespace TestCarApp;
 [TestClass]
 public sealed class Test1
 {
