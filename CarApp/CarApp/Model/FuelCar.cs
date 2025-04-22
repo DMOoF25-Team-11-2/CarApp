@@ -42,6 +42,7 @@ namespace CarApp.Model
             {
                 FuelLevel = 0;
             }
+            Odometer += (int)distance;
         }
 
 
