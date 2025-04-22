@@ -38,5 +38,6 @@ public class ElectricCar : Car
         {
             BatteryLevel = 0;
         }
+        Odometer += (int)distance;
     }
 }
