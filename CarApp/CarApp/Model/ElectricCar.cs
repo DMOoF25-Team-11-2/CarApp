@@ -18,7 +18,7 @@ public class ElectricCar : Car
 
     public override void Drive(double distance)
     {
-        BatteryLevel = BatteryLevel - (distance * KmPerKWh);
+        BatteryLevel = BatteryLevel - (distance / KmPerKWh);
         
         if (BatteryLevel < 0)
         {
