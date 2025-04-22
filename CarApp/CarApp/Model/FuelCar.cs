@@ -12,9 +12,18 @@ namespace CarApp.Model
         public double TankCapacity { get; private set; }
         public double KmPerLiter { get; private set; }
 
-        public FuelCar()
+
+        // Test FuelCar (Brand, Model, Licenseplate, TankCapacity, KmPerLiter)
+
+        public FuelCar(string brand, string model, string licensePlate, double tankCapacity, double kmPerLiter)
         {
-            
+            this.Brand = brand;
+            this.Model = model;
+            this.LicensePlate = licensePlate;
+            this.TankCapacity = tankCapacity;
+            this.KmPerLiter = kmPerLiter;
+            this.IsEngineOn = false;
+            this.Odometer = 0;
         }
 
         public void Refuel(double amount)
