@@ -28,7 +28,11 @@ namespace CarApp.Model
 
         public override void Drive(double distance)
         {
-            
+            FuelLevel = FuelLevel - (distance / KmPerLiter);
+            if (FuelLevel < 0)
+            {
+                FuelLevel = 0;
+            }
         }
 
 
