@@ -8,11 +8,21 @@ public class ElectricCar : Car
 
     public void Charge(double amount)
     {
+        BatteryLevel = BatteryLevel + amount;
         
+        if (BatteryLevel > BatteryCapacity)
+        {
+            BatteryLevel = BatteryCapacity;
+        }
     }
 
     public override void Drive(double distance)
     {
+        BatteryLevel = BatteryLevel - (distance * KmPerKWh);
         
+        if (BatteryLevel < 0)
+        {
+            BatteryLevel = 0;
+        }
     }
 }

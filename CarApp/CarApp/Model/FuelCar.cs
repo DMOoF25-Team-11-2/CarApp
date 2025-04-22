@@ -8,15 +8,28 @@ namespace CarApp.Model
 {
     public class FuelCar : Car
     {
-        public double fuelLevel { get; private set; } 
+        public double FuelLevel { get; private set; } 
         public double TankCapacity { get; private set; }
         public double KmPerLiter { get; private set; }
 
-        public FuelCar()  { }
+        public FuelCar()
+        {
+            
+        }
 
-        public void Refuel (double amount) { }
+        public void Refuel(double amount)
+        {
+            FuelLevel = FuelLevel + amount;
+            if (FuelLevel > TankCapacity)
+            {
+                FuelLevel = TankCapacity;
+            }
+        }
 
-        public override void Drive (double distance) { }
+        public override void Drive(double distance)
+        {
+            
+        }
 
 
     }
