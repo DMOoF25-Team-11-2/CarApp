@@ -23,21 +23,43 @@ public class ElectricCar : Car
     public void Charge(double amount)
     {
         BatteryLevel = BatteryLevel + amount;
-        
+
         if (BatteryLevel > BatteryCapacity)
         {
             BatteryLevel = BatteryCapacity;
         }
     }
 
-    public override void Drive(double distance)
+    public override bool CanDrive()
     {
-        BatteryLevel = BatteryLevel - (distance / KmPerKWh);
-        
+        return IsEngineOn && BatteryLevel > 0;
+    }
+
+    public override double CalculateConsumption(double distance)
+    {
+        return distance / KmPerKWh;
+    }
+
+    public override void UpdateEnergyLevel(double distance)
+    {
+        BatteryLevel -= CalculateConsumption(distance);
         if (BatteryLevel < 0)
         {
             BatteryLevel = 0;
         }
-        Odometer += (int)distance;
     }
+
+    public void Drive(double distance)
+    {
+        if (CanDrive())
+        {
+            Odometer += (int)distance;
+            UpdateEnergyLevel(distance);
+        }
+        else
+        {
+            throw new InvalidOperationException("Cannot drive. Engine is off or fuel level is too low.");
+        }
+    }
+
 }

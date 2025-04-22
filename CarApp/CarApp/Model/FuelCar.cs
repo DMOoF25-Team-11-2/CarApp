@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace CarApp.Model
 {
     public class FuelCar : Car
     {
-        public double FuelLevel { get; private set; } 
+        public double FuelLevel { get; private set; }
         public double TankCapacity { get; private set; }
         public double KmPerLiter { get; private set; }
 
@@ -35,16 +29,37 @@ namespace CarApp.Model
             }
         }
 
-        public override void Drive(double distance)
+        public override bool CanDrive()
         {
-            FuelLevel = FuelLevel - (distance / KmPerLiter);
+            return IsEngineOn && FuelLevel > 0;
+        }
+
+        public override double CalculateConsumption(double distance)
+        {
+            return distance / KmPerLiter;
+        }
+
+        public override void UpdateEnergyLevel(double distance)
+        {
+            FuelLevel -= CalculateConsumption(distance);
             if (FuelLevel < 0)
             {
                 FuelLevel = 0;
             }
-            Odometer += (int)distance;
         }
 
+        public void Drive(double distance)
+        {
+            if (CanDrive())
+            {
+                Odometer += (int)distance;
+                UpdateEnergyLevel(distance);
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot drive. Engine is off or fuel level is too low.");
+            }
+        }
 
     }
 }
