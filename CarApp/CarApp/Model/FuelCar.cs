@@ -29,11 +29,19 @@ namespace CarApp.Model
 
         public void UseEnergy(double km)
         {
+            if (km < 0)
+            {
+                throw new ArgumentException("Distance cannot be negative.");
+            }
             FuelLevel -= km / KmPerLiter;
         }
 
         public override bool CanDrive(double km)
         {
+            if (km < 0)
+            {
+                throw new ArgumentException("Distance cannot be negative.");
+            }
             double requiredFuel = km / KmPerLiter;
             return FuelLevel >= requiredFuel;
         }
