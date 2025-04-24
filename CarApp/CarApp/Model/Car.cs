@@ -38,6 +38,6 @@ public abstract class Car : IDrivable
         }
     }
 
-    public abstract bool CanDrive(double distance);
+    public abstract bool CanDrive(double km);
 
 }

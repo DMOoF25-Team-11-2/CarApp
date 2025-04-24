@@ -4,7 +4,7 @@ namespace CarApp.Model
     {
         public void StartEngine();
         public void StopEngine();
-        public void Drive(double distance);
-        public bool CanDrive(double distance);
+        public void Drive(double km);
+        public bool CanDrive(double km);
     }
 }
