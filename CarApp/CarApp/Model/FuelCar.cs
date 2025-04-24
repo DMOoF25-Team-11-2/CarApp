@@ -1,65 +1,41 @@
 namespace CarApp.Model
 {
-    public class FuelCar : Car
+    public class FuelCar : Car, IEnergy
     {
-        public double FuelLevel { get; private set; }
-        public double TankCapacity { get; private set; }
-        public double KmPerLiter { get; private set; }
+        public double FuelLevel { get; set; }
+        public double TankCapacity { get; set; }
+        public double KmPerLiter { get; set; }
+        public double EnergyLevel { get; set; }
+        public double MaxEnergyLevel { get; set; }
 
-
-        // Test FuelCar (Brand, Model, Licenseplate, TankCapacity, KmPerLiter)
+        // Test FuelCar (Brand, Model, Licenseplate, TankCapacity, KmPerLiter)  
 
         public FuelCar(string brand, string model, string licensePlate, double tankCapacity, double kmPerLiter)
+            : base(brand, model, licensePlate)
         {
-            this.Brand = brand;
-            this.Model = model;
-            this.LicensePlate = licensePlate;
-            this.TankCapacity = tankCapacity;
-            this.KmPerLiter = kmPerLiter;
-            this.IsEngineOn = false;
-            this.Odometer = 0;
+            TankCapacity = tankCapacity;
+            KmPerLiter = kmPerLiter;
+            FuelLevel = tankCapacity; // Start with a full tank
         }
 
-        public void Refuel(double amount)
+        public void Refill(double amount)
         {
-            FuelLevel = FuelLevel + amount;
+            FuelLevel += amount;
             if (FuelLevel > TankCapacity)
             {
                 FuelLevel = TankCapacity;
             }
         }
 
-        public override bool CanDrive()
+        public void UseEnergy(double km)
         {
-            return IsEngineOn && FuelLevel > 0;
+            FuelLevel -= km / KmPerLiter;
         }
 
-        public override double CalculateConsumption(double distance)
+        public override bool CanDrive(double km)
         {
-            return distance / KmPerLiter;
+            double requiredFuel = km / KmPerLiter;
+            return FuelLevel >= requiredFuel;
         }
-
-        public override void UpdateEnergyLevel(double distance)
-        {
-            FuelLevel -= CalculateConsumption(distance);
-            if (FuelLevel < 0)
-            {
-                FuelLevel = 0;
-            }
-        }
-
-        public void Drive(double distance)
-        {
-            if (CanDrive())
-            {
-                Odometer += (int)distance;
-                UpdateEnergyLevel(distance);
-            }
-            else
-            {
-                throw new InvalidOperationException("Cannot drive. Engine is off or fuel level is too low.");
-            }
-        }
-
     }
 }

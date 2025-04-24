@@ -1,25 +1,43 @@
 namespace CarApp.Model;
 
-public abstract class Car
+public abstract class Car : IDrivable
 {
     public string Brand { get; set; }
     public string Model { get; set; }
     public string LicensePlate { get; set; }
-    public bool IsEngineOn { get; set; }
     public int Odometer { get; set; }
+    public bool IsEngineRunning { get; set; }
 
-   
-
-    public void StartEngine ()
-    { 
-        IsEngineOn = true;
-    }
-    public void StopEngine () 
+    public Car(string brand, string model, string licensePlate)
     {
-        IsEngineOn = false;
+        Brand = brand;
+        Model = model;
+        LicensePlate = licensePlate;
+        IsEngineRunning = false;
+        Odometer = 0;
     }
-    public abstract bool CanDrive();
-    public abstract void UpdateEnergyLevel(double distance);
-    public abstract double CalculateConsumption(double distance);
+
+    public void StartEngine()
+    {
+        IsEngineRunning = true;
+    }
+    public void StopEngine()
+    {
+        IsEngineRunning = false;
+    }
+
+    public void Drive(double distance)
+    {
+        if (CanDrive(distance))
+        {
+            Odometer += (int)distance;
+        }
+        else
+        {
+            throw new InvalidOperationException("Not enough fuel or battery to drive the distance.");
+        }
+    }
+
+    public abstract bool CanDrive(double km);
 
 }
