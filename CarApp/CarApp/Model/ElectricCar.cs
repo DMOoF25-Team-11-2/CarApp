@@ -1,65 +1,55 @@
 namespace CarApp.Model;
 
-public class ElectricCar : Car
+public class ElectricCar : Car, IEnergy
 {
     public double BatteryLevel { get; set; }
     public double BatteryCapacity { get; set; }
     public double KmPerKWh { get; set; }
-
-
-    // Test ElectricCar (Brand, Model, Licenseplate, BatteryCapacity, KmPerLiter)
+    public double EnergyLevel { get => BatteryLevel; }
+    public double MaxEnergy { get => BatteryCapacity; }
 
     public ElectricCar(string brand, string model, string licensePlate, double batteryCapacity, double kmPerKWh)
+        : base(brand, model, licensePlate)
     {
-        this.Brand = brand;
-        this.Model = model;
-        this.LicensePlate = licensePlate;
-        this.BatteryCapacity = batteryCapacity;
-        this.KmPerKWh = kmPerKWh;
-        this.IsEngineOn = false;
-        this.Odometer = 0;
+        BatteryCapacity = batteryCapacity;
+        KmPerKWh = kmPerKWh;
+        BatteryLevel = batteryCapacity; // Start with a full battery
     }
 
-    public void Charge(double amount)
+    public override bool CanDrive(double km)
     {
-        BatteryLevel = BatteryLevel + amount;
+        if (km < 0)
+        {
+            throw new ArgumentException("Distance cannot be negative.");
+        }
+        double requiredFuel = km / KmPerKWh;
+        return BatteryLevel >= requiredFuel;
+    }
 
+    public void Refill(double amount)
+    {
+        if (amount < 0)
+        {
+            throw new ArgumentException("Amount to refill must be positive.");
+        }
+        BatteryLevel += amount;
         if (BatteryLevel > BatteryCapacity)
         {
-            BatteryLevel = BatteryCapacity;
+            BatteryLevel = BatteryCapacity; // Cap at max capacity
         }
     }
 
-    public override bool CanDrive()
+    public void UseEnergy(double km)
     {
-        return IsEngineOn && BatteryLevel > 0;
-    }
-
-    public override double CalculateConsumption(double distance)
-    {
-        return distance / KmPerKWh;
-    }
-
-    public override void UpdateEnergyLevel(double distance)
-    {
-        BatteryLevel -= CalculateConsumption(distance);
-        if (BatteryLevel < 0)
+        if (km < 0)
         {
-            BatteryLevel = 0;
+            throw new ArgumentException("Distance cannot be negative.");
         }
-    }
-
-    public void Drive(double distance)
-    {
-        if (CanDrive())
+        double energyUsed = km / KmPerKWh;
+        if (energyUsed > BatteryLevel)
         {
-            Odometer += (int)distance;
-            UpdateEnergyLevel(distance);
+            throw new InvalidOperationException("Not enough battery to drive the distance.");
         }
-        else
-        {
-            throw new InvalidOperationException("Cannot drive. Engine is off or fuel level is too low.");
-        }
+        BatteryLevel -= energyUsed;
     }
-
 }

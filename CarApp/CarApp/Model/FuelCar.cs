@@ -5,8 +5,8 @@ namespace CarApp.Model
         public double FuelLevel { get; set; }
         public double TankCapacity { get; set; }
         public double KmPerLiter { get; set; }
-        public double EnergyLevel { get; set; }
-        public double MaxEnergy { get; set; }
+        public double EnergyLevel { get => FuelLevel; }
+        public double MaxEnergy { get => TankCapacity; }
 
         // Test FuelCar (Brand, Model, Licenseplate, TankCapacity, KmPerLiter)  
 
@@ -29,11 +29,19 @@ namespace CarApp.Model
 
         public void UseEnergy(double km)
         {
+            if (km < 0)
+            {
+                throw new ArgumentException("Distance cannot be negative.");
+            }
             FuelLevel -= km / KmPerLiter;
         }
 
         public override bool CanDrive(double km)
         {
+            if (km < 0)
+            {
+                throw new ArgumentException("Distance cannot be negative.");
+            }
             double requiredFuel = km / KmPerLiter;
             return FuelLevel >= requiredFuel;
         }
