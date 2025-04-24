@@ -28,14 +28,7 @@ public abstract class Car : IDrivable
 
     public void Drive(double distance)
     {
-        if (CanDrive(distance))
-        {
-            Odometer += (int)distance;
-        }
-        else
-        {
-            throw new InvalidOperationException("Not enough fuel or battery to drive the distance.");
-        }
+        Odometer += (int)distance;
     }
 
     public abstract bool CanDrive(double km);
