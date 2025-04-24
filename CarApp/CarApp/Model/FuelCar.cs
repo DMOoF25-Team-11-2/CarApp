@@ -6,7 +6,7 @@ namespace CarApp.Model
         public double TankCapacity { get; set; }
         public double KmPerLiter { get; set; }
         public double EnergyLevel { get; set; }
-        public double MaxEnergyLevel { get; set; }
+        public double MaxEnergy { get; set; }
 
         // Test FuelCar (Brand, Model, Licenseplate, TankCapacity, KmPerLiter)  
 
