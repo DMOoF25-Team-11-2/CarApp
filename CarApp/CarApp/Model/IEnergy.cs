@@ -1,10 +1,10 @@
 namespace CarApp.Model;
 
-interface IEnergy
+public interface IEnergy
 {
-    double EnergyLevel { get; set; }
-    double MaxEnergyLevel { get; set; }
+    public double EnergyLevel { get; set; }
+    public double MaxEnergyLevel { get; set; }
 
-    void Refill(double amount);
-    void UseEnergy(double km);
+    public void Refill(double amount);
+    public void UseEnergy(double km);
 }
