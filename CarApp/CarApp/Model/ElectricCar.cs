@@ -13,7 +13,7 @@ public class ElectricCar : Car, IEnergy
     {
         BatteryCapacity = batteryCapacity;
         KmPerKWh = kmPerKWh;
-        BatteryLevel = batteryCapacity; // Start with a full battery
+        BatteryLevel = 0; // Start with a full battery
     }
 
     public override bool CanDrive(double km)
@@ -51,5 +51,18 @@ public class ElectricCar : Car, IEnergy
             throw new InvalidOperationException("Not enough battery to drive the distance.");
         }
         BatteryLevel -= energyUsed;
+    }
+
+    public void Drive(double km)
+    {
+        if (CanDrive(km))
+        {
+            base.Drive(km);
+            UseEnergy(km);
+        }
+        else
+        {
+            throw new InvalidOperationException("Not enough energy to drive.");
+        }
     }
 }

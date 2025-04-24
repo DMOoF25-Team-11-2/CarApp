@@ -15,7 +15,7 @@ namespace CarApp.Model
         {
             TankCapacity = tankCapacity;
             KmPerLiter = kmPerLiter;
-            FuelLevel = tankCapacity; // Start with a full tank
+            FuelLevel = 0; // Start with a full tank
         }
 
         public void Refill(double amount)
@@ -45,5 +45,19 @@ namespace CarApp.Model
             double requiredFuel = km / KmPerLiter;
             return FuelLevel >= requiredFuel;
         }
+
+        public void Drive(double km)
+        {
+            if (CanDrive(km))
+            {
+                base.Drive(km);
+                UseEnergy(km);
+            }
+            else
+            {
+                throw new InvalidOperationException("Not enough fuel to drive.");
+            }
+        }
+
     }
 }

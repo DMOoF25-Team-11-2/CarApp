@@ -9,7 +9,7 @@ public sealed class TestDrive
         // Arrange
         var car = new Model.ElectricCar("Tesla", "Model S", "ABC123", 100, 5);
         car.StartEngine();
-        car.Charge(50);
+        car.Refill(50);
         // Act
         car.Drive(100);
         // Assert
@@ -23,7 +23,7 @@ public sealed class TestDrive
         // Arrange
         var car = new Model.FuelCar("Seat", "Arona", "BE25546", 45, 19);
         car.StartEngine();
-        car.Refuel(40);
+        car.Refill(40);
         // Act
         car.Drive(57);
         // Assert
