@@ -5,8 +5,8 @@ public class ElectricCar : Car, IEnergy
     public double BatteryLevel { get; set; }
     public double BatteryCapacity { get; set; }
     public double KmPerKWh { get; set; }
-    public double EnergyLevel { get; }
-    public double MaxEnergy { get; }
+    public double EnergyLevel { get => BatteryLevel; }
+    public double MaxEnergy { get => BatteryCapacity; }
 
     public ElectricCar(string brand, string model, string licensePlate, double batteryCapacity, double kmPerKWh)
         : base(brand, model, licensePlate)
