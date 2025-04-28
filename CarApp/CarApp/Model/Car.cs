@@ -7,6 +7,8 @@ public abstract class Car : IDrivable
     public string LicensePlate { get; set; }
     public int Odometer { get; set; }
     public bool IsEngineRunning { get; set; }
+    
+    public List<Trip> Trips { get; set; }
 
     public Car(string brand, string model, string licensePlate)
     {
