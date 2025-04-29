@@ -37,7 +37,7 @@ public class FileCarRepository : ICarRepository
     {
         //Dette giver fejl og overskriver hele filen
         string carStr = car.ToString();
-        using (StreamWriter sw = new StreamWriter(filePath))
+        using (StreamWriter sw = File.AppendText(filePath)) 
         {
             sw.WriteLine(carStr);
         }

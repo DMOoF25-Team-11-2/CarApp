@@ -5,9 +5,10 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        Car car1 = new Car("volvo", "S60", 2000, "Rød", "XX293848", "Benzin");
+        Car car1 = new Car("volvo", "S60", 2000, "Grøn", "XX293848", "Benzin");
         FileCarRepository db = new FileCarRepository("./db.txt");
-        db.AddCar(car1);
+        //db.AddCar(car1);
+        db.DeleteCar(car1.LicensePlate);
         var cars = db.GetAllCars();
         foreach (var car in cars)
         {
