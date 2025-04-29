@@ -1,41 +1,46 @@
+using System.Xml.Schema;
+
 namespace CarApp.Model;
 
-public abstract class Car : IDrivable
+public class Car 
 {
-    public string Brand { get; set; }
+    
+    public string Make { get; set; }
     public string Model { get; set; }
+    
+    public int Year { get; set; }
+    
+    public string Color { get; set; }
     public string LicensePlate { get; set; }
-    public int Odometer { get; set; }
-    public bool IsEngineRunning { get; set; }
+    
+    public string FuelType { get; set; }
     
     public List<Trip> Trips { get; set; }
 
-    public Car(string brand, string model, string licensePlate)
+    public Car(string make, string model, int year, string color, string licensePlate, string fuelType)
     {
-        Brand = brand;
-        Model = model;
-        LicensePlate = licensePlate;
-        IsEngineRunning = false;
-        Odometer = 0;
+        Trips = new List<Trip>();
+        this.Make = make;
+        this.Model = model;
+        this.Year = year;
+        this.Color = color;
+        this.LicensePlate = licensePlate;
+        this.FuelType = fuelType;
     }
 
-    public void StartEngine()
+
+    public string ToString()
     {
-        IsEngineRunning = true;
-    }
-    public void StopEngine()
-    {
-        IsEngineRunning = false;
+       return $"{Make},{Model},{Year},{Color},{LicensePlate},{FuelType}";
     }
 
-    public void Drive(double distance)
+    public static Car FromString(string input)
     {
-        Odometer += (int)distance;
+        string[] carInfo = input.Split(',');
+        Car newCar = new Car(carInfo[0],carInfo[1],Int32.Parse(carInfo[2]),carInfo[3],carInfo[4],carInfo[5]);
+        return newCar;
     }
-
-    public abstract bool CanDrive(double km);
-
 }
 
 
-/// Test push from branch task 10
+/// Team 14 rocks
