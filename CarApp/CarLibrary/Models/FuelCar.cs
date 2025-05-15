@@ -35,10 +35,10 @@ public class FuelCar : Car, IEnergy
     public double CalculateEnergyUsed(double km) => km / KmPerLiter;
 
 
-    public override bool CanDrive(double km) => EnergyLevel >= CalculateEnergyUsed(km);
+    public bool CanDrive(double km) => EnergyLevel >= CalculateEnergyUsed(km);
 
 
-    public override void Drive(double km)
+    public void Drive(double km)
 
     {
 
